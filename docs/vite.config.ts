@@ -3,7 +3,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
 import urlJoin from "url-join";
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig } from "vite";
 
 const basePath = urlJoin("/", process.env.PUBLIC_DOCS_BASE_PATH ?? "/");
 
@@ -46,7 +46,6 @@ export default defineConfig({
         },
       ],
     }),
-    generate404Page(),
     react(),
   ],
   build: {
@@ -59,29 +58,3 @@ export default defineConfig({
     },
   },
 });
-
-function generate404Page(): Plugin {
-  const htmlContent = `\
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/">
-    <title>Redirecting...</title>
-    <script>
-        window.location.replace("${basePath}");
-    </script>
-</head>
-</html>`;
-
-  return {
-    name: "generate-404.html",
-    generateBundle() {
-      this.emitFile({
-        type: "asset",
-        fileName: "404.html",
-        source: htmlContent,
-      });
-    },
-  };
-}

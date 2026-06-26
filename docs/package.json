@@ -5,7 +5,7 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && node scripts/gen-404.ts",
     "start": "serve dist/client",
     "preview": "vite preview",
     "typecheck": "fumadocs-mdx && tsc --noEmit",
