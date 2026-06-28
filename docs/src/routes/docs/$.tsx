@@ -83,6 +83,9 @@ const clientLoader = browserCollections.docs.createClientLoader({
             markdownUrl={markdownUrl}
             githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/docs/content/docs/${path}`}
           />
+          <div>
+            Markdown URL: <code>{markdownUrl}</code>
+          </div>
         </div>
         <DocsBody>
           <MDX components={components} />

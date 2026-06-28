@@ -100,6 +100,9 @@ const clientLoader = browserCollections.legal.createClientLoader({
                 markdownUrl={markdownUrl}
                 githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/docs/content/legal/${path}`}
               />
+              <div>
+                Markdown URL: <code>{markdownUrl}</code>
+              </div>
             </div>
             {lastModified && <PageLastUpdate date={lastModified} />}
           </div>

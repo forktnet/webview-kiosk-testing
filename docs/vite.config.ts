@@ -2,10 +2,10 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
-import urlJoin from "url-join";
 import { defineConfig, type Plugin } from "vite";
+import { getBuildBasePath } from "./src/lib/buildBasePath";
 
-const basePath = urlJoin("/", process.env.PUBLIC_DOCS_BASE_PATH ?? "/");
+const basePath = getBuildBasePath();
 
 export default defineConfig({
   server: {
@@ -24,6 +24,9 @@ export default defineConfig({
           enabled: true,
           crawlLinks: true,
         },
+      },
+      prerender: {
+        failOnError: true,
       },
       pages: [
         {

@@ -4,7 +4,7 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { TanStackRouterDevtoolsInProd } from "@tanstack/react-router-devtools";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import IconAsset from "@/assets/icon.svg";
 import SearchDialog from "@/components/fumadocs/search";
@@ -44,7 +44,7 @@ function RootComponent() {
         <RootProvider search={{ SearchDialog }}>
           <Outlet />
           <Toaster />
-          <TanStackRouterDevtools position="bottom-right" />
+          <TanStackRouterDevtoolsInProd position="bottom-right" />
         </RootProvider>
         <Scripts />
       </body>

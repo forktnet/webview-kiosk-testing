@@ -4,3 +4,5 @@ allowBuilds:
   workerd: false
 minimumReleaseAgeExclude:
   - '@types/node@26.0.1'
+  - lucide-react@1.22.0
+  - valibot@1.4.2

@@ -1,9 +1,11 @@
+import { trimPath } from "@tanstack/react-router";
 import { docs, legal as legalPages } from "collections/server";
 import { loader } from "fumadocs-core/source";
 import { lucideIconsPlugin } from "fumadocs-core/source/lucide-icons";
 import { toFumadocsSource } from "fumadocs-mdx/runtime/server";
 import urlJoin from "url-join";
 import { getBasePath } from "./basePath";
+import { getBuildBasePath } from "./buildBasePath";
 import { docsRoute } from "./shared";
 
 export const source = loader({
@@ -21,11 +23,14 @@ export function markdownPathToSlugs(segs: string[]) {
     return [];
   }
 
-  const out = [...segs];
+  const out = [...segs].filter(
+    (slug) => trimPath(slug) !== trimPath(getBuildBasePath()),
+  );
   out[out.length - 1] = out[out.length - 1].replace(/\.md$/, "");
   if (out.length === 1 && out[0] === "index") {
     out.pop();
   }
+  console.log({ out });
   return out;
 }
 
@@ -36,16 +41,15 @@ export function slugsToMarkdownPath(slugs: string[], baseRoute: string) {
   } else {
     segments[segments.length - 1] += ".md";
   }
-
+  console.log({ segments });
   return {
     segments,
-    url: urlJoin(getBasePath(), baseRoute, segments.join("/")),
+    url: urlJoin("/", baseRoute, segments.join("/")),
   };
 }
 
 export async function getLLMText(page: (typeof source)["$inferPage"]) {
   const processed = await page.data.getText("processed");
-
   return `# ${page.data.title} (${page.url})
 
 ${processed}`;
@@ -53,7 +57,6 @@ ${processed}`;
 
 export async function getLLMTextLegal(page: (typeof legal)["$inferPage"]) {
   const processed = await page.data.getText("processed");
-
   return `# ${page.data.info} (${page.url})
 
 ${processed}`;
